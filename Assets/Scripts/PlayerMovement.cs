@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private float _leftBound = -2.4f;
     private float _rightBound = 2.4f;
+    private Vector3 _position;
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         float horizontalDirection = Input.GetAxis("Horizontal");
-        Vector2 position = transform.position;
+        Vector2 movePosition = transform.position;
         
         _targetSpeed = horizontalDirection * _speed;
         _currentSpeed = Mathf.MoveTowards(_currentSpeed, _targetSpeed, _acceleration * Time.deltaTime);
@@ -37,26 +38,23 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.Play("Idle");
         }
-
-         
         
-        position.x = _currentSpeed;
-        position.y = 0f;
+        movePosition.x = _currentSpeed;
+        movePosition.y = 0f;
         
-        transform.Translate(position * Time.deltaTime, Space.World);
+        transform.Translate(movePosition * Time.deltaTime, Space.World);
 
         if (transform.position.x < _leftBound)
         {
-            Vector3 positionLeft = transform.position;
-            positionLeft.x = _leftBound;
-            transform.position = positionLeft;
+            _position = transform.position;
+            _position.x = _leftBound;
+            transform.position = _position;
         }
         else if (transform.position.x > _rightBound)
         {
-            Vector3 positionRight = transform.position;
-            positionRight.x = _rightBound;
-            transform.position = positionRight;
+            _position = transform.position;
+            _position.x = _rightBound;
+            transform.position = _position;
         }
-
     }
 }
