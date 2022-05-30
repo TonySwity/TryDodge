@@ -43,16 +43,16 @@ public class PlayerMovement : MonoBehaviour
         movePosition.y = 0f;
         
         transform.Translate(movePosition * Time.deltaTime, Space.World);
-
+        
+        _position = transform.position;
+        
         if (transform.position.x < _leftBound)
         {
-            _position = transform.position;
             _position.x = _leftBound;
             transform.position = _position;
         }
         else if (transform.position.x > _rightBound)
         {
-            _position = transform.position;
             _position.x = _rightBound;
             transform.position = _position;
         }
