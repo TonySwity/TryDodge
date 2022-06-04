@@ -33,12 +33,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (horizontalDirection != 0)
         {
-            _animator.Play("Move");
+            _animator.Play(PlayerAnimationController.Params.Move);
             transform.eulerAngles = (horizontalDirection < 0) ? Vector3.up * 180f : Vector3.zero;
         }
         else
         {
-            _animator.Play("Idle");
+            _animator.Play(PlayerAnimationController.Params.Idle);
         }
 
         movePosition.x = _currentSpeed;
