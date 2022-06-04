@@ -2,9 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Animator),typeof(BoxCollider2D))]
+[RequireComponent(typeof(Animator),typeof(BoxCollider2D), typeof(AudioSource))]
 public class Bomb : MonoBehaviour
 {
+    private AudioSource _audio;
     private Animator _animator;
     private BoxCollider2D _collider;
     private float _delay = 1f;
@@ -13,10 +14,12 @@ public class Bomb : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _collider = GetComponent<BoxCollider2D>();
+        _audio = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        _audio.Play();
         StartCoroutine(Bang());
         
         if (col.gameObject.TryGetComponent(out Player player))
